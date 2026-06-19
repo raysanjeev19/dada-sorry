@@ -1,0 +1,321 @@
+:root {
+  --rose-50: #fff5f8;
+  --rose-100: #ffe3ec;
+  --rose-200: #ffc2d6;
+  --rose-300: #ff9bbb;
+  --rose-400: #ff6b9d;
+  --rose-500: #f8467f;
+  --peach: #ffd9c0;
+  --ink: #5b2333;
+  --ink-soft: #8a5566;
+  --white-glass: rgba(255, 255, 255, 0.72);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background: linear-gradient(160deg, #fff5f8 0%, #ffe3ec 38%, #ffd9c0 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+/* ---------- App shell ---------- */
+.stage {
+  position: relative;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px;
+  overflow: hidden;
+}
+
+/* ---------- Floating hearts background ---------- */
+.bg-hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-heart {
+  position: absolute;
+  bottom: -40px;
+  color: var(--rose-300);
+  opacity: 0;
+  animation: floatUp linear infinite;
+  will-change: transform, opacity;
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(0.6);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-112dvh) rotate(40deg) scale(1.1);
+    opacity: 0;
+  }
+}
+
+/* ---------- Card ---------- */
+.card {
+  position: relative;
+  z-index: 2;
+  width: min(540px, 100%);
+  background: var(--white-glass);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 32px;
+  padding: 40px 32px 44px;
+  text-align: center;
+  box-shadow:
+    0 24px 60px -18px rgba(248, 70, 127, 0.32),
+    0 2px 0 rgba(255, 255, 255, 0.9) inset;
+  animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------- Character ---------- */
+.face {
+  width: 132px;
+  height: 132px;
+  margin: 0 auto 8px;
+  display: block;
+  filter: drop-shadow(0 10px 18px rgba(248, 70, 127, 0.28));
+  animation: bob 3.2s ease-in-out infinite;
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.face.happy {
+  animation: pop 0.6s cubic-bezier(0.22, 1.4, 0.4, 1) both, bob 3.2s ease-in-out 0.6s infinite;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.4) rotate(-8deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ---------- Text ---------- */
+.eyebrow {
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--rose-400);
+  margin-bottom: 4px;
+}
+.title {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(3.4rem, 12vw, 4.8rem);
+  line-height: 0.95;
+  font-weight: 700;
+  color: var(--rose-500);
+  margin-bottom: 14px;
+}
+.message {
+  font-size: 1.06rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 38ch;
+  margin: 0 auto 28px;
+}
+.message strong {
+  color: var(--rose-500);
+  font-weight: 700;
+}
+.ask {
+  font-family: 'Caveat', cursive;
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+/* ---------- Buttons ---------- */
+.btn-row {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 999px;
+  padding: 15px 38px;
+  cursor: pointer;
+  min-height: 52px;
+  min-width: 130px;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+.btn:focus-visible {
+  outline: 3px solid var(--rose-500);
+  outline-offset: 3px;
+}
+.btn-yes {
+  color: #fff;
+  background: linear-gradient(135deg, var(--rose-400), var(--rose-500));
+  box-shadow: 0 12px 26px -8px rgba(248, 70, 127, 0.65);
+}
+.btn-yes:hover {
+  transform: translateY(-2px) scale(var(--yes-scale, 1.06));
+  box-shadow: 0 18px 34px -8px rgba(248, 70, 127, 0.7);
+}
+.btn-yes:active {
+  transform: translateY(0) scale(1.02);
+}
+
+/* The dodging No button — stays INSIDE the card */
+.btn-no {
+  color: var(--ink-soft);
+  background: #fff;
+  border: 2px solid var(--rose-200);
+}
+.btn-no.runaway {
+  position: absolute;
+  z-index: 5;
+  margin: 0;
+}
+.hint {
+  margin-top: 22px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.55rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--rose-500);
+  min-height: 1.4em;
+  transition: opacity 0.3s ease;
+}
+.hint:not(:empty) {
+  animation: hintPop 0.35s cubic-bezier(0.22, 1.4, 0.4, 1) both;
+}
+@keyframes hintPop {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ---------- Success state ---------- */
+.signoff {
+  font-family: 'Caveat', cursive;
+  font-size: 1.7rem;
+  color: var(--rose-500);
+  margin-top: 8px;
+}
+.again {
+  margin-top: 18px;
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.7;
+}
+.again:hover {
+  opacity: 1;
+}
+
+/* ---------- Phone view ---------- */
+@media (max-width: 480px) {
+  .stage {
+    padding: 16px 12px;
+    align-items: flex-start;
+    padding-top: max(20px, env(safe-area-inset-top));
+  }
+  .card {
+    border-radius: 26px;
+    padding: 28px 20px 34px;
+    margin-top: 6vh;
+  }
+  .face {
+    width: 108px;
+    height: 108px;
+  }
+  .title {
+    font-size: clamp(2.8rem, 14vw, 3.6rem);
+  }
+  .message {
+    font-size: 1rem;
+  }
+  .ask {
+    font-size: 1.9rem;
+  }
+  .btn-row {
+    gap: 12px;
+  }
+  /* full-width Yes on phone; No stays small so it can dodge freely */
+  .btn-yes {
+    flex: 1 1 100%;
+    order: -1;
+  }
+  .btn-no:not(.runaway) {
+    flex: 0 0 auto;
+  }
+  .btn {
+    padding: 14px 26px;
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-heart,
+  .face,
+  .face.happy,
+  .card {
+    animation: none !important;
+  }
+  .btn {
+    transition: none;
+  }
+}
