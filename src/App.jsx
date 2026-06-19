@@ -115,38 +115,42 @@ export default function App() {
           <>
             <p className="eyebrow">A little note for you</p>
             <h1 className="title">I'm Sorry, {TO}</h1>
-            <p className="message">
-              I messed up, and I really didn't mean to hurt you. You're my
-              favourite person and our friendship means <strong>everything</strong> to
-              me. Please don't stay mad at me? 🥺
-            </p>
-            <p className="ask">Will you forgive me?</p>
 
-            <div className="play-zone" ref={playRef}>
-              <button
-                className="btn btn-yes"
-                style={{ '--yes-scale': yesScale }}
-                onClick={sayYes}
-              >
-                <span>Yes 💗</span>
-              </button>
+            {/* the No button roams anywhere inside this text area */}
+            <div className="roam" ref={playRef}>
+              <p className="message">
+                I messed up, and I really didn't mean to hurt you. You're my
+                favourite person and our friendship means <strong>everything</strong>{' '}
+                to me. Please don't stay mad at me? 🥺
+              </p>
+              <p className="ask">Will you forgive me?</p>
 
-              <button
-                ref={noRef}
-                className={`btn btn-no ${noStyle ? 'runaway' : ''}`}
-                style={noStyle || undefined}
-                onPointerEnter={dodge}
-                onPointerDown={dodge}
-                onTouchStart={dodge}
-                onClick={dodge}
-                onContextMenu={(e) => e.preventDefault()}
-                aria-label="No (but good luck clicking it)"
-              >
-                {noLabel}
-              </button>
+              <div className="play-zone">
+                <button
+                  className="btn btn-yes"
+                  style={{ '--yes-scale': yesScale }}
+                  onClick={sayYes}
+                >
+                  <span>Yes 💗</span>
+                </button>
+
+                <button
+                  ref={noRef}
+                  className={`btn btn-no ${noStyle ? 'runaway' : ''}`}
+                  style={noStyle || undefined}
+                  onPointerEnter={dodge}
+                  onPointerDown={dodge}
+                  onTouchStart={dodge}
+                  onClick={dodge}
+                  onContextMenu={(e) => e.preventDefault()}
+                  aria-label="No (but good luck clicking it)"
+                >
+                  {noLabel}
+                </button>
+              </div>
+
+              <p className="hint" key={hintIdx}>{hint}</p>
             </div>
-
-            <p className="hint" key={hintIdx}>{hint}</p>
           </>
         ) : (
           <>

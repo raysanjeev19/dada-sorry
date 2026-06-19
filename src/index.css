@@ -244,21 +244,17 @@ body {
 }
 
 /* ---------- Buttons ---------- */
-/* bounded area the No button roams inside — clearly framed so it stays here */
-.play-zone {
+/* the text area the No button is allowed to roam across (message → buttons → hint) */
+.roam {
   position: relative;
+}
+.play-zone {
   display: flex;
   gap: 16px;
   justify-content: center;
   align-items: center;
-  align-content: center;
   flex-wrap: wrap;
-  min-height: 176px;
-  padding: 16px;
-  border-radius: 26px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 228, 238, 0.35));
-  border: 1.5px dashed rgba(242, 61, 126, 0.32);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+  margin-top: 4px;
   animation: fadeUp 0.55s 0.38s both;
 }
 .btn {
@@ -414,7 +410,6 @@ body {
   }
   .play-zone {
     gap: 12px;
-    min-height: 210px;
   }
   /* full-width Yes on phone; No stays small so it can dodge freely */
   .btn-yes {
