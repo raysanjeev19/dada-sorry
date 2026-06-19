@@ -248,6 +248,12 @@ body {
 .roam {
   position: relative;
 }
+/* opacity-only entrance: must NOT use transform, or it would become the
+   containing block and the absolute No button would stick near the Yes button */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 .play-zone {
   display: flex;
   gap: 16px;
@@ -255,7 +261,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
   margin-top: 4px;
-  animation: fadeUp 0.55s 0.38s both;
+  animation: fadeIn 0.55s 0.38s both;
 }
 .btn {
   font-family: 'Quicksand', sans-serif;
