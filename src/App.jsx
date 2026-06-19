@@ -58,7 +58,8 @@ export default function App() {
   const [hintIdx, setHintIdx] = useState(-1) // -1 = no hint yet
   const [noStyle, setNoStyle] = useState(null) // null = inline; object = runaway pos
   const noRef = useRef(null)
-  const playRef = useRef(null) // bounded area the No button roams inside
+  const playRef = useRef(null) // positioned container (offset parent)
+  const msgRef = useRef(null) // the message text the No button roams over
 
   const yesScale = Math.min(1.05 + dodges * 0.04, 1.32)
 
@@ -68,17 +69,21 @@ export default function App() {
       e.stopPropagation()
     }
     const btn = noRef.current
-    const zone = playRef.current
+    const msg = msgRef.current
     const w = btn?.offsetWidth || 100
     const h = btn?.offsetHeight || 52
-    const pad = 8
-    // keep the button INSIDE the visible play-zone (near the buttons) only
-    const zw = zone?.clientWidth || 320
-    const zh = zone?.clientHeight || 200
-    const maxX = Math.max(pad, zw - w - pad)
-    const maxY = Math.max(pad, zh - h - pad)
-    const left = pad + Math.random() * (maxX - pad)
-    const top = pad + Math.random() * (maxY - pad)
+    const pad = 6
+    // confine the button to the MESSAGE text box only (same offset parent: .roam)
+    const bx = msg?.offsetLeft ?? 0
+    const by = msg?.offsetTop ?? 0
+    const bw = msg?.offsetWidth || 300
+    const bh = msg?.offsetHeight || 120
+    const minX = bx + pad
+    const minY = by + pad
+    const maxX = Math.max(minX, bx + bw - w - pad)
+    const maxY = Math.max(minY, by + bh - h - pad)
+    const left = minX + Math.random() * (maxX - minX)
+    const top = minY + Math.random() * (maxY - minY)
     setNoStyle({ left: `${left}px`, top: `${top}px` })
     setDodges((d) => d + 1)
     // every dodge → a fresh, different label + hint
@@ -118,7 +123,7 @@ export default function App() {
 
             {/* the No button roams anywhere inside this text area */}
             <div className="roam" ref={playRef}>
-              <p className="message">
+              <p className="message" ref={msgRef}>
                 I messed up, and I really didn't mean to hurt you. You're my
                 favourite person and our friendship means <strong>everything</strong>{' '}
                 to me. Please don't stay mad at me? 🥺
