@@ -1,14 +1,17 @@
 :root {
-  --rose-50: #fff5f8;
-  --rose-100: #ffe3ec;
-  --rose-200: #ffc2d6;
-  --rose-300: #ff9bbb;
-  --rose-400: #ff6b9d;
-  --rose-500: #f8467f;
-  --peach: #ffd9c0;
-  --ink: #5b2333;
-  --ink-soft: #8a5566;
-  --white-glass: rgba(255, 255, 255, 0.72);
+  --rose-50: #fff4f8;
+  --rose-100: #ffe6ef;
+  --rose-200: #ffc6da;
+  --rose-300: #ff9cbd;
+  --rose-400: #ff6a9f;
+  --rose-500: #f23d7e;
+  --rose-600: #d92465;
+  --lilac: #c9b6ff;
+  --lilac-soft: #efe7ff;
+  --peach: #ffd7be;
+  --ink: #4a1f35;
+  --ink-soft: #8a5a6e;
+  --white-glass: rgba(255, 255, 255, 0.66);
 }
 
 * {
@@ -27,7 +30,11 @@ body,
 body {
   font-family: 'Quicksand', system-ui, -apple-system, sans-serif;
   color: var(--ink);
-  background: linear-gradient(160deg, #fff5f8 0%, #ffe3ec 38%, #ffd9c0 100%);
+  background:
+    radial-gradient(820px 520px at 14% 8%, rgba(201, 182, 255, 0.6), transparent 60%),
+    radial-gradient(760px 560px at 88% 18%, rgba(255, 138, 183, 0.55), transparent 60%),
+    radial-gradient(720px 520px at 50% 108%, rgba(255, 200, 168, 0.62), transparent 60%),
+    linear-gradient(160deg, #fff4f8 0%, #ffe6ef 46%, #f3e7ff 100%);
   background-attachment: fixed;
   overflow-x: hidden;
   min-height: 100dvh;
@@ -42,6 +49,39 @@ body {
   justify-content: center;
   padding: 24px 18px;
   overflow: hidden;
+}
+/* soft drifting ambient glow blobs for depth */
+.stage::before,
+.stage::after {
+  content: '';
+  position: fixed;
+  width: 46vmax;
+  height: 46vmax;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
+  z-index: 0;
+}
+.stage::before {
+  top: -12vmax;
+  left: -10vmax;
+  background: radial-gradient(circle, rgba(201, 182, 255, 0.85), transparent 70%);
+  animation: drift1 16s ease-in-out infinite;
+}
+.stage::after {
+  bottom: -14vmax;
+  right: -12vmax;
+  background: radial-gradient(circle, rgba(255, 122, 166, 0.8), transparent 70%);
+  animation: drift2 19s ease-in-out infinite;
+}
+@keyframes drift1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6vmax, 4vmax) scale(1.12); }
+}
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-5vmax, -5vmax) scale(1.1); }
 }
 
 /* ---------- Floating hearts background ---------- */
@@ -90,8 +130,9 @@ body {
   padding: 40px 32px 44px;
   text-align: center;
   box-shadow:
-    0 24px 60px -18px rgba(248, 70, 127, 0.32),
-    0 2px 0 rgba(255, 255, 255, 0.9) inset;
+    0 30px 70px -22px rgba(217, 36, 101, 0.34),
+    0 12px 40px -24px rgba(167, 139, 250, 0.45),
+    0 2px 0 rgba(255, 255, 255, 0.95) inset;
   animation: cardIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 @keyframes cardIn {
@@ -149,6 +190,10 @@ body {
   font-size: clamp(3.4rem, 12vw, 4.8rem);
   line-height: 0.95;
   font-weight: 700;
+  background: linear-gradient(100deg, var(--rose-400) 0%, var(--rose-600) 55%, #a07bff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: var(--rose-500);
   margin-bottom: 14px;
 }
@@ -201,12 +246,12 @@ body {
 }
 .btn-yes {
   color: #fff;
-  background: linear-gradient(135deg, var(--rose-400), var(--rose-500));
-  box-shadow: 0 12px 26px -8px rgba(248, 70, 127, 0.65);
+  background: linear-gradient(135deg, var(--rose-400) 0%, var(--rose-500) 55%, var(--rose-600) 100%);
+  box-shadow: 0 14px 30px -8px rgba(217, 36, 101, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
 }
 .btn-yes:hover {
   transform: translateY(-2px) scale(var(--yes-scale, 1.06));
-  box-shadow: 0 18px 34px -8px rgba(248, 70, 127, 0.7);
+  box-shadow: 0 20px 38px -8px rgba(217, 36, 101, 0.68), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
 }
 .btn-yes:active {
   transform: translateY(0) scale(1.02);

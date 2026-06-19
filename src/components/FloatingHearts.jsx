@@ -26,7 +26,7 @@ export default function FloatingHearts() {
             left: `${h.left}%`,
             animationDuration: `${h.duration}s`,
             animationDelay: `${h.delay}s`,
-            color: i % 3 === 0 ? '#ffd9c0' : '#ff9bbb',
+            color: ['#ff9cbd', '#c9b6ff', '#ffd7be'][i % 3],
           }}
         >
           <path d="M12 21s-7.5-4.9-10-9.3C.3 8.2 1.9 4.5 5.3 4.5c2 0 3.4 1.2 4.7 2.8 1.3-1.6 2.7-2.8 4.7-2.8 3.4 0 5 3.7 3.3 7.2C19.5 16.1 12 21 12 21z" />
