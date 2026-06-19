@@ -137,7 +137,9 @@ export default function App() {
                 style={noStyle || undefined}
                 onPointerEnter={dodge}
                 onPointerDown={dodge}
+                onTouchStart={dodge}
                 onClick={dodge}
+                onContextMenu={(e) => e.preventDefault()}
                 aria-label="No (but good luck clicking it)"
               >
                 {noLabel}
