@@ -128,7 +128,7 @@ export default function App() {
                 style={{ '--yes-scale': yesScale }}
                 onClick={sayYes}
               >
-                Yes 💗
+                <span>Yes 💗</span>
               </button>
 
               <button

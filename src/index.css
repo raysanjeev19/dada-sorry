@@ -158,10 +158,10 @@ body {
 @keyframes bob {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-2.5deg);
   }
   50% {
-    transform: translateY(-8px);
+    transform: translateY(-9px) rotate(2.5deg);
   }
 }
 .face.happy {
@@ -177,6 +177,16 @@ body {
 }
 
 /* ---------- Text ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .eyebrow {
   font-size: 1rem;
   letter-spacing: 0.18em;
@@ -184,18 +194,33 @@ body {
   font-weight: 600;
   color: var(--rose-400);
   margin-bottom: 4px;
+  animation: fadeUp 0.55s 0.06s both;
 }
 .title {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(3.4rem, 12vw, 4.8rem);
-  line-height: 0.95;
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(3.6rem, 13vw, 5.2rem);
+  line-height: 1;
   font-weight: 700;
-  background: linear-gradient(100deg, var(--rose-400) 0%, var(--rose-600) 55%, #a07bff 100%);
+  background: linear-gradient(
+    100deg,
+    var(--rose-400) 0%,
+    var(--rose-600) 35%,
+    #a07bff 55%,
+    var(--rose-500) 75%,
+    var(--rose-400) 100%
+  );
+  background-size: 230% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: var(--rose-500);
   margin-bottom: 14px;
+  animation: titleShimmer 7s linear infinite, fadeUp 0.6s 0.14s both;
+}
+@keyframes titleShimmer {
+  to {
+    background-position: 230% center;
+  }
 }
 .message {
   font-size: 1.06rem;
@@ -203,17 +228,19 @@ body {
   color: var(--ink-soft);
   max-width: 38ch;
   margin: 0 auto 28px;
+  animation: fadeUp 0.55s 0.22s both;
 }
 .message strong {
   color: var(--rose-500);
   font-weight: 700;
 }
 .ask {
-  font-family: 'Caveat', cursive;
-  font-size: 2.2rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.5rem;
   font-weight: 600;
   color: var(--ink);
   margin-bottom: 24px;
+  animation: fadeUp 0.55s 0.3s both;
 }
 
 /* ---------- Buttons ---------- */
@@ -223,6 +250,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  animation: fadeUp 0.55s 0.38s both;
 }
 .btn {
   font-family: 'Quicksand', sans-serif;
@@ -245,9 +273,44 @@ body {
   outline-offset: 3px;
 }
 .btn-yes {
+  position: relative;
   color: #fff;
   background: linear-gradient(135deg, var(--rose-400) 0%, var(--rose-500) 55%, var(--rose-600) 100%);
   box-shadow: 0 14px 30px -8px rgba(217, 36, 101, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+}
+/* light sweep across the button (clipped to the rounded shape) */
+.btn-yes::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 150% 0;
+  animation: sweep 3.6s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sweep {
+  0% { background-position: 150% 0; }
+  55%, 100% { background-position: -150% 0; }
+}
+/* gentle radar pulse to invite the click */
+.btn-yes::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(242, 61, 126, 0.45);
+  animation: ring 2.8s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes ring {
+  0% { box-shadow: 0 0 0 0 rgba(242, 61, 126, 0.45); }
+  70%, 100% { box-shadow: 0 0 0 18px rgba(242, 61, 126, 0); }
+}
+.btn-yes span {
+  position: relative;
+  z-index: 1;
 }
 .btn-yes:hover {
   transform: translateY(-2px) scale(var(--yes-scale, 1.06));
@@ -270,7 +333,7 @@ body {
 }
 .hint {
   margin-top: 22px;
-  font-family: 'Caveat', cursive;
+  font-family: 'Dancing Script', cursive;
   font-size: 1.55rem;
   font-weight: 600;
   line-height: 1.25;
@@ -294,10 +357,11 @@ body {
 
 /* ---------- Success state ---------- */
 .signoff {
-  font-family: 'Caveat', cursive;
-  font-size: 1.7rem;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.9rem;
   color: var(--rose-500);
   margin-top: 8px;
+  animation: fadeUp 0.55s 0.2s both;
 }
 .again {
   margin-top: 18px;
@@ -331,7 +395,7 @@ body {
     height: 108px;
   }
   .title {
-    font-size: clamp(2.8rem, 14vw, 3.6rem);
+    font-size: clamp(3.2rem, 15vw, 4.2rem);
   }
   .message {
     font-size: 1rem;
@@ -363,13 +427,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-heart,
-  .face,
-  .face.happy,
-  .card {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
-  }
-  .btn {
-    transition: none;
+    transition-duration: 0.01ms !important;
   }
 }
