@@ -244,12 +244,16 @@ body {
 }
 
 /* ---------- Buttons ---------- */
-.btn-row {
+/* bounded area the No button roams inside — keeps it visible & near the buttons */
+.play-zone {
+  position: relative;
   display: flex;
   gap: 16px;
   justify-content: center;
   align-items: center;
+  align-content: center;
   flex-wrap: wrap;
+  min-height: 168px;
   animation: fadeUp 0.55s 0.38s both;
 }
 .btn {
@@ -403,8 +407,9 @@ body {
   .ask {
     font-size: 1.9rem;
   }
-  .btn-row {
+  .play-zone {
     gap: 12px;
+    min-height: 210px;
   }
   /* full-width Yes on phone; No stays small so it can dodge freely */
   .btn-yes {
